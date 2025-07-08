@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My TODOs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f6f6f6;
+            padding: 40px;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            max-width: 700px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .todo-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .todo-item:last-child {
+            border-bottom: none;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+        .add-btn, .logout-btn {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-top: 20px;
+            text-decoration: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+        }
+        .logout-btn {
+            background-color: #dc3545;
+            float: right;
+        }
+        .actions a {
+            color: #dc3545;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>{{ request.user.username }}'s TODO List</h2>
+
+        {% for todo in todos %}
+            <div class="todo-item">
+                <div>
+                    <strong class="{% if todo.completed %}completed{% endif %}">
+                        {{ todo.title }}
+                    </strong><br>
+                    <small>{{ todo.description }}</small>
+                </div>
+                <div class="actions">
+                    <a href="{% url 'delete_todo' todo.id %}">🗑 Delete</a>
+                </div>
+            </div>
+        {% empty %}
+            <p>No TODOs yet.</p>
+        {% endfor %}
+
+        <a href="{% url 'add_todo' %}" class="add-btn">+ Add TODO</a>
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    </div>
+</body>
+</html>

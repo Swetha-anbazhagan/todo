@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            padding: 40px;
+        }
+        .dashboard {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .stat {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            font-size: 18px;
+        }
+        .users {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <h2>📊 Admin Dashboard</h2>
+        <div class="stat"><span>Total TODOs:</span> <strong>{{ total_todos }}</strong></div>
+        <div class="stat"><span>Completed TODOs:</span> <strong>{{ completed_todos }}</strong></div>
+        <div class="stat"><span>Pending TODOs:</span> <strong>{{ pending_todos }}</strong></div>
+        <div class="stat"><span>Total Users:</span> <strong>{{ user_count }}</strong></div>
+
+        <div class="users">
+            <h3>👥 Top 5 Active Users</h3>
+            <ul>
+                {% for user in top_users %}
+                    <li>{{ user.username }} - {{ user.todo_count }} TODOs</li>
+                {% empty %}
+                    <li>No users yet.</li>
+                {% endfor %}
+            </ul>
+        
+</body>
+</html>
